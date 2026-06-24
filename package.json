@@ -1,0 +1,13 @@
+{
+  "name": "pruebas-avanzadas-tonini",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "devDependencies": {
+    "jasmine": "^5.13.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

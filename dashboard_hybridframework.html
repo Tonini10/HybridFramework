@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — HybridFramework Project</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f5f5f0;color:#1a1a1a;padding:24px}
+h1{font-size:22px;font-weight:600;color:#1F4E79;margin-bottom:3px}
+.sub{font-size:13px;color:#666;margin-bottom:18px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+button{padding:7px 13px;border-radius:8px;border:1px solid #ddd;font-size:12px;cursor:pointer;background:#fff;color:#555;transition:all .15s}
+button.on{background:#1F4E79;color:#fff;border-color:#1F4E79;font-weight:500}
+button:hover:not(.on){background:#f0f0f0}
+.sec{display:none}.sec.on{display:block}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.card{background:#fff;border-radius:10px;padding:14px;border:1px solid #e5e5e5}
+.cl{font-size:11px;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.cv{font-size:22px;font-weight:600;color:#1F4E79}
+.cs{font-size:11px;color:#999;margin-top:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.box{background:#fff;border-radius:10px;padding:16px;border:1px solid #e5e5e5}
+.bt{font-size:13px;font-weight:600;color:#333;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
+.row:last-child{border-bottom:none}
+.rl{color:#666}.rv{font-weight:600;color:#1F4E79}
+.badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.bg{background:#c0dd97;color:#27500a}.by{background:#fac775;color:#633806}
+.br{background:#f09595;color:#791f1f}.bb{background:#b5d4f4;color:#0c447c}
+.brow{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.blb{font-size:11px;color:#666;width:110px;flex-shrink:0}
+.bw{flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px}
+.bv{font-size:11px;font-weight:600;color:#333;width:30px;text-align:right}
+.pipe-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0}
+.pipe-row:last-child{border-bottom:none}
+.pn{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.pl{flex:1;font-size:12px;color:#333}.ph{font-size:11px;color:#888;margin-right:8px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:#666}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+@media(max-width:700px){.cards{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Dashboard — HybridFramework Project</h1>
+<p class="sub">Métricas y resultados de las 7 secciones del proyecto · Diseño de Pruebas — UIDE 2026</p>
+
+<div class="nav">
+  <button class="on" onclick="go('overview')">Vista general</button>
+  <button onclick="go('s1')">S1 · Comparación</button>
+  <button onclick="go('s2')">S2 · Framework</button>
+  <button onclick="go('s3')">S3 · Búsqueda</button>
+  <button onclick="go('s4')">S4 · Métricas</button>
+  <button onclick="go('s5')">S5 · Combinatorias</button>
+  <button onclick="go('s6')">S6 · Pipeline</button>
+  <button onclick="go('s7')">S7 · Predictivo</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="sec on">
+  <div class="cards">
+    <div class="card"><div class="cl">Secciones completadas</div><div class="cv">7 / 7</div><div class="cs">100% del proyecto</div></div>
+    <div class="card"><div class="cl">Total specs</div><div class="cv">59</div><div class="cs">0 failures</div></div>
+    <div class="card"><div class="cl">Archivos fuente</div><div class="cv">6</div><div class="cs">src/ en JavaScript</div></div>
+    <div class="card"><div class="cl">Herramientas integradas</div><div class="cv">9</div><div class="cs">Jasmine, Stryker, nyc...</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Specs por sección</p>
+      <div class="leg"><span class="li"><span class="ld" style="background:#185fa5"></span>Specs (total: 59)</span></div>
+      <div style="position:relative;height:220px"><canvas id="c-specs" role="img" aria-label="Specs por sección">S1:10 S2:6 S3:3 S4:4 S5:8 S6:16 S7:12</canvas></div>
+    </div>
+    <div class="box">
+      <p class="bt">Describes por sección</p>
+      <div class="leg"><span class="li"><span class="ld" style="background:#0f6e56"></span>Describes (total: 33)</span></div>
+      <div style="position:relative;height:220px"><canvas id="c-desc" role="img" aria-label="Describes por sección">S1:5 S2:3 S3:3 S4:4 S5:4 S6:8 S7:6</canvas></div>
+    </div>
+  </div>
+  <div class="box">
+    <p class="bt">Resumen del proyecto por sección</p>
+    <div class="row"><span class="rl">S1 — Comparación frameworks (codeless vs traditional)</span><span class="rv"><span class="badge bg">10 specs · 5 describes</span></span></div>
+    <div class="row"><span class="rl">S2 — Mini-framework híbrido (HybridTest)</span><span class="rv"><span class="badge bg">6 specs · 3 describes</span></span></div>
+    <div class="row"><span class="rl">S3 — Búsqueda binaria extendida</span><span class="rv"><span class="badge by">3 specs · 3 describes</span></span></div>
+    <div class="row"><span class="rl">S4 — Métricas avanzadas de calidad</span><span class="rv"><span class="badge by">4 specs · 4 describes</span></span></div>
+    <div class="row"><span class="rl">S5 — Pruebas combinatorias</span><span class="rv"><span class="badge bg">8 specs · 4 describes</span></span></div>
+    <div class="row"><span class="rl">S6 — Pipeline de testing integral</span><span class="rv"><span class="badge bg">16 specs · 8 describes</span></span></div>
+    <div class="row"><span class="rl">S7 — Modelo predictivo personalizado</span><span class="rv"><span class="badge bg">12 specs · 6 describes</span></span></div>
+  </div>
+</div>
+
+<!-- S1 -->
+<div id="s1" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">ROI positivo – Jasmine</div><div class="cv">79%</div><div class="cs">equipos satisfechos</div></div>
+    <div class="card"><div class="cl">Adopción Selenium</div><div class="cv">64.2%</div><div class="cs">equipos QA global</div></div>
+    <div class="card"><div class="cl">Detección – Jasmine</div><div class="cv">82%</div><div class="cs">tasa de defectos</div></div>
+    <div class="card"><div class="cl">t-test TC vs Jasmine</div><div class="cv">-8.75</div><div class="cs">p &lt; 0.05 ✓</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Detección de defectos (%)</p>
+      <div class="leg"><span class="li"><span class="ld" style="background:#185fa5"></span>TestCraft 74%</span><span class="li"><span class="ld" style="background:#0f6e56"></span>Jasmine 82%</span><span class="li"><span class="ld" style="background:#993c1d"></span>Selenium 78%</span></div>
+      <div style="position:relative;height:200px"><canvas id="c-det" role="img" aria-label="Detección de defectos por framework">TestCraft 74, Jasmine 82, Selenium 78</canvas></div>
+    </div>
+    <div class="box">
+      <p class="bt">ROI positivo por framework (%)</p>
+      <div class="leg"><span class="li"><span class="ld" style="background:#993c1d"></span>TestCraft 36%</span><span class="li"><span class="ld" style="background:#0f6e56"></span>Jasmine 79%</span><span class="li"><span class="ld" style="background:#185fa5"></span>Selenium 64%</span></div>
+      <div style="position:relative;height:200px"><canvas id="c-roi" role="img" aria-label="ROI positivo por framework">TestCraft 36, Jasmine 79, Selenium 64</canvas></div>
+    </div>
+  </div>
+  <div class="box">
+    <p class="bt">Pruebas de hipótesis (α = 0.05 · t crítico ±2.228)</p>
+    <div class="row"><span class="rl">TestCraft vs Jasmine — tiempo de desarrollo</span><span class="rv">t = -8.75 &nbsp;<span class="badge bg">rechaza H₀</span></span></div>
+    <div class="row"><span class="rl">Jasmine vs Selenium — detección de defectos</span><span class="rv">t = 3.12 &nbsp;<span class="badge bg">rechaza H₀</span></span></div>
+    <div class="row"><span class="rl">TestCraft vs Selenium — mantenibilidad</span><span class="rv">t = 5.60 &nbsp;<span class="badge bg">rechaza H₀</span></span></div>
+    <div class="row"><span class="rl">Jasmine vs TestCraft — ROI general</span><span class="rv">t = 4.83 &nbsp;<span class="badge bg">rechaza H₀</span></span></div>
+    <div class="row"><span class="rl">Correlación Pearson: tiempo → detección (Jasmine)</span><span class="rv">r = 0.86 &nbsp;<span class="badge bb">fuerte</span></span></div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div id="s2" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Módulos</div><div class="cv">4</div><div class="cs">en hybridtest.js</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">6</div><div class="cs">section1_spec.js</div></div>
+    <div class="card"><div class="cl">Describes</div><div class="cv">3</div><div class="cs">integración, mocking, validación</div></div>
+    <div class="card"><div class="cl">Failures</div><div class="cv">0</div><div class="cs">todas pasan</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Funciones de HybridTest</p>
+      <div class="row"><span class="rl">autoWire(módulos)</span><span class="rv"><span class="badge bb">integración automática</span></span></div>
+      <div class="row"><span class="rl">crearEspia(nombre)</span><span class="rv"><span class="badge by">mocking avanzado</span></span></div>
+      <div class="row"><span class="rl">validar(datos, esquema)</span><span class="rv"><span class="badge bg">validación por tipos</span></span></div>
+      <div class="row"><span class="rl">busquedaBinaria(arr, obj)</span><span class="rv"><span class="badge bb">O(log n)</span></span></div>
+    </div>
+    <div class="box">
+      <p class="bt">Capacidades del espía personalizado</p>
+      <div class="row"><span class="rl">vecesLlamado()</span><span class="rv"><span class="badge bg">✓ implementado</span></span></div>
+      <div class="row"><span class="rl">ultimosArgs()</span><span class="rv"><span class="badge bg">✓ implementado</span></span></div>
+      <div class="row"><span class="rl">retornar(valor)</span><span class="rv"><span class="badge bg">✓ implementado</span></span></div>
+      <div class="row"><span class="rl">lanzarError(err)</span><span class="rv"><span class="badge bg">✓ implementado</span></span></div>
+      <div class="row"><span class="rl">reiniciar()</span><span class="rv"><span class="badge bg">✓ implementado</span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div id="s3" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Complejidad</div><div class="cv">O(log n)</div><div class="cs">búsqueda binaria</div></div>
+    <div class="card"><div class="cl">Técnicas</div><div class="cv">3</div><div class="cs">Property, Mutation, Contract</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">3</div><div class="cs">section2_spec.js</div></div>
+    <div class="card"><div class="cl">Iteraciones property-based</div><div class="cv">20</div><div class="cs">arreglos aleatorios</div></div>
+  </div>
+  <div class="box" style="margin-bottom:14px">
+    <p class="bt">Técnicas de testing avanzadas implementadas</p>
+    <div class="row"><span class="rl">Property-based testing</span><span class="rv">20 arreglos aleatorios ordenados · elemento al azar &nbsp;<span class="badge bg">pasa</span></span></div>
+    <div class="row"><span class="rl">Mutation testing (manual)</span><span class="rv">Bug: while (inicio &gt; fin) detectado &nbsp;<span class="badge bg">pasa</span></span></div>
+    <div class="row"><span class="rl">Contract testing</span><span class="rv">Postcondición: arreglo[resultado] === objetivo &nbsp;<span class="badge bg">pasa</span></span></div>
+  </div>
+  <div class="box">
+    <p class="bt">Contrato formal del algoritmo</p>
+    <div class="row"><span class="rl">Precondición</span><span class="rv">Arreglo ordenado ascendentemente</span></div>
+    <div class="row"><span class="rl">Postcondición (encontrado)</span><span class="rv">arreglo[resultado] === objetivo</span></div>
+    <div class="row"><span class="rl">Postcondición (no encontrado)</span><span class="rv">resultado === -1</span></div>
+    <div class="row"><span class="rl">Invariante del while</span><span class="rv">inicio &lt;= fin</span></div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div id="s4" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Funciones</div><div class="cv">4</div><div class="cs">en metrics.js</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">4</div><div class="cs">section3_spec.js</div></div>
+    <div class="card"><div class="cl">Umbral lento</div><div class="cv">100 ms</div><div class="cs">medirTiempo()</div></div>
+    <div class="card"><div class="cl">Cobertura alta</div><div class="cv">≥ 80%</div><div class="cs">analizarCobertura()</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Funciones implementadas</p>
+      <div class="row"><span class="rl">calcularComplejidad(codigo)</span><span class="rv"><span class="badge bb">SonarQube</span></span></div>
+      <div class="row"><span class="rl">detectarFlakyTest(fn, n)</span><span class="rv"><span class="badge by">Flaky detector</span></span></div>
+      <div class="row"><span class="rl">medirTiempo(nombre, fn)</span><span class="rv"><span class="badge bg">Profiler</span></span></div>
+      <div class="row"><span class="rl">analizarCobertura(tot, ej, def)</span><span class="rv"><span class="badge bb">Istanbul/nyc</span></span></div>
+    </div>
+    <div class="box">
+      <p class="bt">Patrones de complejidad ciclomática</p>
+      <div class="row"><span class="rl">if / else</span><span class="rv">+1 por ocurrencia</span></div>
+      <div class="row"><span class="rl">for / while</span><span class="rv">+1 por ocurrencia</span></div>
+      <div class="row"><span class="rl">case</span><span class="rv">+1 por ocurrencia</span></div>
+      <div class="row"><span class="rl">&amp;&amp; / ||</span><span class="rv">+1 por ocurrencia</span></div>
+      <div class="row"><span class="rl">Base siempre</span><span class="rv">1</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div id="s5" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Funciones</div><div class="cv">4</div><div class="cs">en combinatorial.js</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">8</div><div class="cs">section4_spec.js</div></div>
+    <div class="card"><div class="cl">Describes</div><div class="cv">4</div><div class="cs">generación, riesgo, predicción, orquestador</div></div>
+    <div class="card"><div class="cl">Niveles de riesgo</div><div class="cv">3</div><div class="cs">alto, medio, bajo</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Componentes del sistema</p>
+      <div class="row"><span class="rl">generarCombinaciones(params)</span><span class="rv"><span class="badge bb">producto cartesiano</span></span></div>
+      <div class="row"><span class="rl">priorizarPorRiesgo(casos)</span><span class="rv"><span class="badge by">alto → medio → bajo</span></span></div>
+      <div class="row"><span class="rl">crearModeloPrediccion()</span><span class="rv"><span class="badge bg">patrón fábrica</span></span></div>
+      <div class="row"><span class="rl">orquestar(params, hist, fn)</span><span class="rv"><span class="badge bb">integrador</span></span></div>
+    </div>
+    <div class="box">
+      <p class="bt">Lógica del modelo de predicción</p>
+      <div class="row"><span class="rl">Clave de identificación</span><span class="rv">JSON.stringify(caso)</span></div>
+      <div class="row"><span class="rl">Propenso a fallar si</span><span class="rv">tasa fallo ≥ 0.5</span></div>
+      <div class="row"><span class="rl">Confianza alta si</span><span class="rv">≥ 5 ejecuciones</span></div>
+      <div class="row"><span class="rl">Sin historial</span><span class="rv">propensoAFallar: false</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div id="s6" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Etapas</div><div class="cv">7</div><div class="cs">en pipeline.js</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">16</div><div class="cs">section5_spec.js</div></div>
+    <div class="card"><div class="cl">Describes</div><div class="cv">8</div><div class="cs">una por etapa + orquestador</div></div>
+    <div class="card"><div class="cl">Config files</div><div class="cv">2</div><div class="cs">.nycrc + stryker.conf.js</div></div>
+  </div>
+  <div class="box" style="margin-bottom:14px">
+    <p class="bt">Etapas del pipeline de testing integral</p>
+    <div class="pipe-row"><div class="pn" style="background:#b5d4f4;color:#0c447c">1</div><div class="pl">Análisis estático</div><div class="ph">SonarQube</div><span class="badge by">sin errores críticos</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#c0dd97;color:#27500a">2</div><div class="pl">Pruebas unitarias</div><div class="ph">Jasmine</div><span class="badge bg">0 failures</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#b5d4f4;color:#0c447c">3</div><div class="pl">Cobertura de código</div><div class="ph">Istanbul / nyc</div><span class="badge by">≥ 80%</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#c0dd97;color:#27500a">4</div><div class="pl">Pruebas de mutación</div><div class="ph">Stryker</div><span class="badge bg">score ≥ 70%</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#b5d4f4;color:#0c447c">5</div><div class="pl">Pruebas combinatorias</div><div class="ph">ACTS</div><span class="badge by">≥ 1 caso generado</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#c0dd97;color:#27500a">6</div><div class="pl">Automatización sin código</div><div class="ph">TestCraft</div><span class="badge bg">0 pasos fallidos</span></div>
+    <div class="pipe-row"><div class="pn" style="background:#b5d4f4;color:#0c447c">7</div><div class="pl">Modelo de confiabilidad</div><div class="ph">SMERFS</div><span class="badge by">confiabilidad ≥ 70%</span></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">.nycrc — umbrales de cobertura</p>
+      <div class="brow"><span class="blb">branches</span><div class="bw"><div class="bf" style="width:80%;background:#185fa5"></div></div><span class="bv">80%</span></div>
+      <div class="brow"><span class="blb">lines</span><div class="bw"><div class="bf" style="width:80%;background:#185fa5"></div></div><span class="bv">80%</span></div>
+      <div class="brow"><span class="blb">functions</span><div class="bw"><div class="bf" style="width:80%;background:#185fa5"></div></div><span class="bv">80%</span></div>
+      <div class="brow"><span class="blb">statements</span><div class="bw"><div class="bf" style="width:80%;background:#185fa5"></div></div><span class="bv">80%</span></div>
+    </div>
+    <div class="box">
+      <p class="bt">stryker.conf.js — mutation thresholds</p>
+      <div class="brow"><span class="blb">high</span><div class="bw"><div class="bf" style="width:80%;background:#0f6e56"></div></div><span class="bv">80%</span></div>
+      <div class="brow"><span class="blb">low</span><div class="bw"><div class="bf" style="width:70%;background:#ba7517"></div></div><span class="bv">70%</span></div>
+      <div class="brow"><span class="blb">break</span><div class="bw"><div class="bf" style="width:60%;background:#a32d2d"></div></div><span class="bv">60%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div id="s7" class="sec">
+  <div class="cards">
+    <div class="card"><div class="cl">Funciones</div><div class="cv">7</div><div class="cs">en predictivo.js</div></div>
+    <div class="card"><div class="cl">Specs</div><div class="cv">12</div><div class="cs">section7_spec.js</div></div>
+    <div class="card"><div class="cl">Pesos del modelo</div><div class="cv">40/40/20</div><div class="cs">log / esto / complejidad</div></div>
+    <div class="card"><div class="cl">Nivel Alta</div><div class="cv">≥ 85%</div><div class="cs">confiabilidad por módulo</div></div>
+  </div>
+  <div class="g2">
+    <div class="box">
+      <p class="bt">Ponderación del modelo integrado</p>
+      <div class="leg"><span class="li"><span class="ld" style="background:#185fa5"></span>Logarítmico 40%</span><span class="li"><span class="ld" style="background:#0f6e56"></span>Estocástico 40%</span><span class="li"><span class="ld" style="background:#993c1d"></span>Complejidad 20%</span></div>
+      <div style="position:relative;height:180px"><canvas id="c-pesos" role="img" aria-label="Pesos del modelo predictivo">Logarítmico 40, Estocástico 40, Complejidad 20</canvas></div>
+    </div>
+    <div class="box">
+      <p class="bt">Modelos matemáticos formales</p>
+      <div class="row"><span class="rl">Logarítmico (Musa-Okumoto)</span><span class="rv" style="font-size:11px">R = 1 - ln(1+f)/ln(1+max)</span></div>
+      <div class="row"><span class="rl">Estocástico (Markov)</span><span class="rv" style="font-size:11px">R = e^(-λ)</span></div>
+      <div class="row"><span class="rl">Índice de complejidad</span><span class="rv" style="font-size:11px">0.5·cc + 0.3·(L/100) + 0.2·d</span></div>
+      <div class="row"><span class="rl">Confiabilidad global</span><span class="rv" style="font-size:11px">∏ R(módulo_i)</span></div>
+    </div>
+  </div>
+  <div class="box">
+    <p class="bt">Niveles de confiabilidad</p>
+    <div class="brow"><span class="blb">Alta (≥ 85%)</span><div class="bw"><div class="bf" style="width:85%;background:#0f6e56"></div></div><span class="bv">85%</span></div>
+    <div class="brow"><span class="blb">Media (65–84%)</span><div class="bw"><div class="bf" style="width:75%;background:#ba7517"></div></div><span class="bv">75%</span></div>
+    <div class="brow"><span class="blb">Baja (&lt; 65%)</span><div class="bw"><div class="bf" style="width:50%;background:#a32d2d"></div></div><span class="bv">50%</span></div>
+  </div>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('button').forEach(b=>{if(b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('on');});
+}
+const mk=(id,type,labels,datasets,opts)=>{
+  const c=document.getElementById(id);if(!c)return;
+  new Chart(c,{type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},...opts}});
+};
+window.addEventListener('load',()=>{
+  mk('c-specs','bar',['S1','S2','S3','S4','S5','S6','S7'],[{data:[10,6,3,4,8,16,12],backgroundColor:'#185fa5',borderRadius:4}],{scales:{y:{min:0,ticks:{stepSize:4}}}});
+  mk('c-desc','bar',['S1','S2','S3','S4','S5','S6','S7'],[{data:[5,3,3,4,4,8,6],backgroundColor:'#0f6e56',borderRadius:4}],{scales:{y:{min:0,ticks:{stepSize:2}}}});
+  mk('c-det','bar',['TestCraft','Jasmine','Selenium'],[{data:[74,82,78],backgroundColor:['#185fa5','#0f6e56','#993c1d'],borderRadius:4}],{scales:{y:{min:60,max:90}}});
+  mk('c-roi','bar',['TestCraft','Jasmine','Selenium'],[{data:[36,79,64],backgroundColor:['#993c1d','#0f6e56','#185fa5'],borderRadius:4}],{scales:{y:{min:0,max:100}}});
+  mk('c-pesos','doughnut',['Logarítmico','Estocástico','Complejidad'],[{data:[40,40,20],backgroundColor:['#185fa5','#0f6e56','#993c1d'],borderWidth:0}],{cutout:'65%'});
+});
+</script>
+</body>
+</html>
